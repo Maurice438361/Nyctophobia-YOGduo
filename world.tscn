@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://4m8x1ew1scsr"]
+
+[sub_resource type="Environment" id="Environment_jp3n2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_csymv"]
+size = Vector2(574, 27)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_jp3n2")
+
+[node name="Camera2D" type="Camera2D" parent="WorldEnvironment"]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(287, 311)
+shape = SubResource("RectangleShape2D_csymv")
