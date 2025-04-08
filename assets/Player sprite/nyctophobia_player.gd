@@ -56,14 +56,16 @@ func _physics_process(delta):
 	
 	#WallJump
 	
-	if !is_on_floor() and is_on_wall() and !WallClingRest and velocity.y > 0:
-		var wallCollisionSide = get_wall_normal()
-		if wallCollisionSide == Vector2(1.0,0.0) and Input.is_action_pressed("Left") or wallCollisionSide == Vector2(-1.0,0.0) and Input.is_action_pressed("Right"):
-			WallCling = true
-			WallClingRest = true
-			velocity.y = 0
-			await get_tree().create_timer(WALL_CLING_TIME).timeout
-			WallCling = false
+	if !is_on_floor() and !WallClingRest and velocity.y > 0:
+		if $RayCastLeftBottom.is_colliding() and $RayCastLeftTop.is_colliding() or $RayCastRightBottom.is_colliding() and $RayCastRightTop:
+			if $RayCastLeftBottom.get_collider() == $RayCastLeftTop.get_collider() or $RayCastRightBottom.get_collider() == $RayCastLeftTop.get_collider(): 
+				var wallCollisionSide = get_wall_normal()
+				if wallCollisionSide == Vector2(1.0,0.0) and Input.is_action_pressed("Left") or wallCollisionSide == Vector2(-1.0,0.0) and Input.is_action_pressed("Right"):
+					WallCling = true
+					WallClingRest = true
+					velocity.y = 0
+					await get_tree().create_timer(WALL_CLING_TIME).timeout
+					WallCling = false
 			
 	
 	if is_on_floor() and WallClingRest:

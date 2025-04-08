@@ -147,7 +147,7 @@ height = 50.0
 script = ExtResource("2_t1ppf")
 WALL_JUMP_FORCE = 300
 WALL_PUSH_FORCE = 100
-WALL_JUMP_GRACE = 10.0
+WALL_JUMP_GRACE = 1.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_oay2s")
@@ -165,3 +165,19 @@ drag_right_margin = 0.15
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 7)
 shape = SubResource("CapsuleShape2D_3evso")
+
+[node name="RayCastRightTop" type="RayCast2D" parent="."]
+position = Vector2(7, -8)
+target_position = Vector2(4, 0)
+
+[node name="RayCastRightBottom" type="RayCast2D" parent="."]
+position = Vector2(7, 22)
+target_position = Vector2(4, 0)
+
+[node name="RayCastLeftBottom" type="RayCast2D" parent="."]
+position = Vector2(-7, 22)
+target_position = Vector2(-4, 0)
+
+[node name="RayCastLeftTop" type="RayCast2D" parent="."]
+position = Vector2(-7, -8)
+target_position = Vector2(-4, 0)
