@@ -145,6 +145,9 @@ height = 50.0
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
 script = ExtResource("2_t1ppf")
+WALL_JUMP_FORCE = 300
+WALL_PUSH_FORCE = 100
+WALL_JUMP_GRACE = 10.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_oay2s")

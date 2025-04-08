@@ -73,10 +73,10 @@ func _physics_process(delta):
 		WallCling = false
 		
 	if WallCling and Input.is_action_just_pressed("Jump"):
+		WallCling = false
+		WallJumped = true
 		velocity.y -= WALL_JUMP_FORCE
 		velocity.x = get_wall_normal().x * WALL_PUSH_FORCE
-		WallJumped = true
-		WallCling = false
 		await get_tree().create_timer(WALL_JUMP_GRACE).timeout
 		WallJumped = false
 		
