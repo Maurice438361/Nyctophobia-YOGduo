@@ -190,7 +190,6 @@ sources/0 = SubResource("TileSetAtlasSource_aqk2v")
 
 [node name="Background" type="TileMapLayer" parent="."]
 position = Vector2(1, 0)
-tile_map_data = PackedByteArray("AABjAA4AAQAAAAAAAAA=")
 tile_set = SubResource("TileSet_aqk2v")
 
 [node name="Colliders" type="TileMapLayer" parent="."]
