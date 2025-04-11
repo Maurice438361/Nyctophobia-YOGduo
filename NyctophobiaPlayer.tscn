@@ -1,7 +1,7 @@
 [gd_scene load_steps=22 format=3 uid="uid://cib36sg3dy4n8"]
 
 [ext_resource type="Texture2D" uid="uid://6kdn00uoem5n" path="res://assets/PlayerSpriteAnimated/duo game player sprite sheet.png" id="1_3evso"]
-[ext_resource type="Script" uid="uid://dinuysbfm40m8" path="res://assets/Player sprite/nyctophobia_player.gd" id="2_t1ppf"]
+[ext_resource type="Script" uid="uid://bds5ci3jv4xs8" path="res://assets/Player script/nyctophobia_player.gd" id="1_t1ppf"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kekkd"]
 atlas = ExtResource("1_3evso")
@@ -144,7 +144,7 @@ animations = [{
 height = 50.0
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
-script = ExtResource("2_t1ppf")
+script = ExtResource("1_t1ppf")
 WALL_JUMP_FORCE = 300
 WALL_PUSH_FORCE = 100
 WALL_JUMP_GRACE = 1.0

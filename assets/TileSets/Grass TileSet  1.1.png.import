@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ivuiadmhbl8a"
-path="res://.godot/imported/duo game player sprite sheet.png-7d5f49968a608d7f019c699071a95439.ctex"
+uid="uid://cc488kgg5j6sf"
+path="res://.godot/imported/Grass TileSet  1.1.png-bf44f8bd826772ceb1822c3a07eb0a79.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/duo game player sprite sheet.png"
-dest_files=["res://.godot/imported/duo game player sprite sheet.png-7d5f49968a608d7f019c699071a95439.ctex"]
+source_file="res://assets/TileSets/Grass TileSet  1.1.png"
+dest_files=["res://.godot/imported/Grass TileSet  1.1.png-bf44f8bd826772ceb1822c3a07eb0a79.ctex"]
 
 [params]
 
