@@ -29,6 +29,14 @@ func is_touching_ledge_side() -> bool:
 	var ledge_clear = !ledge_check.has_overlapping_bodies()
 	return wall_side_touched and ledge_clear
 
+func is_pushing_against_wall(normal: Vector2) -> bool:
+	return (normal == Vector2(1.0, 0.0) and Input.is_action_pressed("Left")) or \
+		   (normal == Vector2(-1.0, 0.0) and Input.is_action_pressed("Right"))
+		
+func play_anim(name: String) -> void:
+	if $AnimatedSprite2D.animation != name:
+		$AnimatedSprite2D.play(name)
+
 func _physics_process(delta):
 	
 	#Run
@@ -40,14 +48,14 @@ func _physics_process(delta):
 		velocity.x = direction * SPEED
 		
 		if is_on_floor():
-			$AnimatedSprite2D.play("Run")
+			play_anim("Run")
 		
 	elif !CantWalk: 
 		
 		velocity.x = 0
 		
 		if is_on_floor():
-			$AnimatedSprite2D.play("Idle")
+			play_anim("Idle")
 	
 	#Rotate
 	
@@ -68,7 +76,7 @@ func _physics_process(delta):
 		
 		velocity.y -= JUMP_FORCE
 		
-		$AnimatedSprite2D.play("Jump")
+		play_anim("Jump")
 	
 	#LedgeGrab
 	
@@ -78,8 +86,8 @@ func _physics_process(delta):
 		velocity.y = 0
 		HangingFromWall = true
 	
-	if WallClingRest and !is_touching_ledge_side() or WallClingRest and is_on_floor():
-		WallClingRest = false
+	if LedgeGrabRest and !is_touching_ledge_side() or LedgeGrabRest and is_on_floor():
+		LedgeGrabRest = false
 	
 	if HangingFromWall:
 		var wallCollisionSide = get_wall_normal()
@@ -88,16 +96,15 @@ func _physics_process(delta):
 			HangingFromWall = false
 		
 		if Input.is_action_pressed("Up") or Input.is_action_just_pressed("Jump"):
-			velocity.y = 100
-			velocity.x = direction * 100
 			CantWalk = false
 			HangingFromWall = false
+			velocity.y -= 300
 	
 	#WallJump
 	
 	if !is_on_floor() and !WallClingRest and velocity.y > 0 and is_touching_wall_full_side():
 		var wallCollisionSide = get_wall_normal()
-		if wallCollisionSide == Vector2(1.0,0.0) and Input.is_action_pressed("Left") or wallCollisionSide == Vector2(-1.0,0.0) and Input.is_action_pressed("Right"):
+		if is_pushing_against_wall(wallCollisionSide):
 			WallCling = true
 			WallClingRest = true
 			velocity.y = 0
@@ -114,7 +121,7 @@ func _physics_process(delta):
 	
 	if WallCling:
 		var wallCollisionSide = get_wall_normal()
-		if  wallCollisionSide == Vector2(1.0,0.0) and !Input.is_action_pressed("Left") or wallCollisionSide == Vector2(-1.0,0.0) and !Input.is_action_pressed("Right"):
+		if  !is_pushing_against_wall(wallCollisionSide):
 			WallCling = false
 		
 		if Input.is_action_just_pressed("Jump"):
