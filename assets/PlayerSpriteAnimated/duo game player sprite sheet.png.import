@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://6kdn00uoem5n"
-path="res://.godot/imported/duo game player sprite sheet.png-7d5f49968a608d7f019c699071a95439.ctex"
+path="res://.godot/imported/duo game player sprite sheet.png-f8561d40b8d1dd8333051e6f3bbfd2ab.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/duo game player sprite sheet.png"
-dest_files=["res://.godot/imported/duo game player sprite sheet.png-7d5f49968a608d7f019c699071a95439.ctex"]
+source_file="res://assets/PlayerSpriteAnimated/duo game player sprite sheet.png"
+dest_files=["res://.godot/imported/duo game player sprite sheet.png-f8561d40b8d1dd8333051e6f3bbfd2ab.ctex"]
 
 [params]
 
