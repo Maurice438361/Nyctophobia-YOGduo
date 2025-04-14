@@ -147,7 +147,7 @@ height = 50.0
 a = Vector2(-10, 0)
 b = Vector2(12, 0)
 
-[node name="CharacterBody2D" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["player"]]
 collision_layer = 2
 script = ExtResource("1_t1ppf")
 WALL_JUMP_FORCE = 300
