@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://cib36sg3dy4n8"]
+[gd_scene load_steps=23 format=3 uid="uid://cib36sg3dy4n8"]
 
 [ext_resource type="Texture2D" uid="uid://6kdn00uoem5n" path="res://assets/PlayerSpriteAnimated/duo game player sprite sheet.png" id="1_3evso"]
 [ext_resource type="Script" uid="uid://bds5ci3jv4xs8" path="res://assets/Player script/nyctophobia_player.gd" id="1_t1ppf"]
@@ -143,7 +143,12 @@ animations = [{
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3evso"]
 height = 50.0
 
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_21y1p"]
+a = Vector2(-10, 0)
+b = Vector2(12, 0)
+
 [node name="CharacterBody2D" type="CharacterBody2D"]
+collision_layer = 2
 script = ExtResource("1_t1ppf")
 WALL_JUMP_FORCE = 300
 WALL_PUSH_FORCE = 100
@@ -166,18 +171,22 @@ drag_right_margin = 0.15
 position = Vector2(0, 7)
 shape = SubResource("CapsuleShape2D_3evso")
 
-[node name="RayCastRightTop" type="RayCast2D" parent="."]
-position = Vector2(7, -8)
-target_position = Vector2(4, 0)
+[node name="TopCollisionChecker" type="Area2D" parent="."]
 
-[node name="RayCastRightBottom" type="RayCast2D" parent="."]
-position = Vector2(7, 22)
-target_position = Vector2(4, 0)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TopCollisionChecker"]
+position = Vector2(-1, -5)
+shape = SubResource("SegmentShape2D_21y1p")
 
-[node name="RayCastLeftBottom" type="RayCast2D" parent="."]
-position = Vector2(-7, 22)
-target_position = Vector2(-4, 0)
+[node name="LedgeCollisionChecker" type="Area2D" parent="."]
+position = Vector2(22, 10)
 
-[node name="RayCastLeftTop" type="RayCast2D" parent="."]
-position = Vector2(-7, -8)
-target_position = Vector2(-4, 0)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LedgeCollisionChecker"]
+position = Vector2(-23, -20)
+shape = SubResource("SegmentShape2D_21y1p")
+
+[node name="BottomCollisionChecker" type="Area2D" parent="."]
+position = Vector2(-4, 7)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BottomCollisionChecker"]
+position = Vector2(3, 13)
+shape = SubResource("SegmentShape2D_21y1p")
