@@ -8,12 +8,15 @@ extends CharacterBody2D
 @export var WALL_JUMP_FORCE : int = 200
 @export var WALL_PUSH_FORCE : int = 300
 @export var WALL_JUMP_GRACE : float = 0.2
+@export var CLIMBING_SPEED : int = 100
 
-var WallCling = false
-var WallClingRest = false
-var CantWalk = false
-var HangingFromWall = false
-var LedgeGrabRest = false
+var WallCling: bool = false
+var WallClingRest: bool = false
+var CantWalk: bool = false
+var HangingFromWall: bool = false
+var LedgeGrabRest: bool = false
+var Climbing: bool = false
+var IsInClimbleArea: bool = false
 
 @onready var wall_check_top = $TopCollisionChecker
 @onready var wall_check_bottom = $BottomCollisionChecker
@@ -36,6 +39,9 @@ func is_pushing_against_wall(normal: Vector2) -> bool:
 func play_anim(name: String) -> void:
 	if $AnimatedSprite2D.animation != name:
 		$AnimatedSprite2D.play(name)
+		
+func set_climbing_area_overlap(value: bool) -> void:
+	IsInClimbleArea = value
 
 func _physics_process(delta):
 	
@@ -66,7 +72,7 @@ func _physics_process(delta):
 	
 	#Gravity
 	
-	if !is_on_floor() and !WallCling and !HangingFromWall:
+	if !is_on_floor() and !WallCling and !HangingFromWall and !Climbing:
 		
 		velocity.y += GRAVITY * delta
 	
@@ -131,5 +137,24 @@ func _physics_process(delta):
 			velocity.x = get_wall_normal().x * WALL_PUSH_FORCE
 			await get_tree().create_timer(WALL_JUMP_GRACE).timeout
 			CantWalk = false
+	
+	#WallClimb
+	
+	if IsInClimbleArea and is_on_floor() and Input.is_action_just_pressed("Up"):
+		Climbing = true
+		
+	if Climbing:
+		
+		if Input.is_action_just_pressed("Up"):
+			velocity.y -= CLIMBING_SPEED
+			
+		if Input.is_action_just_pressed("Down"):
+			velocity.y += CLIMBING_SPEED
+			
+		if !Input.is_action_pressed("Up") and !Input.is_action_pressed("Down"):
+			velocity.y = 0
+			
+		if !IsInClimbleArea or Input.is_action_just_pressed("Jump"):
+			Climbing = false
 		
 	move_and_slide()
