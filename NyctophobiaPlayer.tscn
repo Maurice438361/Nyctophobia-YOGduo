@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://cib36sg3dy4n8"]
+[gd_scene load_steps=25 format=3 uid="uid://cib36sg3dy4n8"]
 
 [ext_resource type="Texture2D" uid="uid://6kdn00uoem5n" path="res://assets/PlayerSpriteAnimated/duo game player sprite sheet.png" id="1_3evso"]
 [ext_resource type="Script" uid="uid://bds5ci3jv4xs8" path="res://assets/Player script/nyctophobia_player.gd" id="1_t1ppf"]
@@ -97,7 +97,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_27oiw")
 }],
-"loop": true,
+"loop": false,
 "name": &"Jump",
 "speed": 5.0
 }, {
@@ -143,11 +143,23 @@ animations = [{
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3evso"]
 height = 50.0
 
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_3evso"]
+a = Vector2(11, 4)
+b = Vector2(-11, 4)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_t1ppf"]
+a = Vector2(-11, 22)
+b = Vector2(11, 22)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_kekkd"]
+a = Vector2(-10, -13)
+b = Vector2(12, -13)
+
 [node name="CharacterBody2D" type="CharacterBody2D"]
-script = ExtResource("1_t1ppf")
+collision_layer = 2
+script = ExtResource("2_t1ppf")
 WALL_JUMP_FORCE = 300
 WALL_PUSH_FORCE = 100
-WALL_JUMP_GRACE = 1.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_oay2s")
@@ -166,18 +178,19 @@ drag_right_margin = 0.15
 position = Vector2(0, 7)
 shape = SubResource("CapsuleShape2D_3evso")
 
-[node name="RayCastRightTop" type="RayCast2D" parent="."]
-position = Vector2(7, -8)
-target_position = Vector2(4, 0)
+[node name="TopCollisionChecker" type="Area2D" parent="."]
 
-[node name="RayCastRightBottom" type="RayCast2D" parent="."]
-position = Vector2(7, 22)
-target_position = Vector2(4, 0)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TopCollisionChecker"]
+position = Vector2(0, -12)
+shape = SubResource("SegmentShape2D_3evso")
 
-[node name="RayCastLeftBottom" type="RayCast2D" parent="."]
-position = Vector2(-7, 22)
-target_position = Vector2(-4, 0)
+[node name="BottomCollisionChecker" type="Area2D" parent="."]
 
-[node name="RayCastLeftTop" type="RayCast2D" parent="."]
-position = Vector2(-7, -8)
-target_position = Vector2(-4, 0)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BottomCollisionChecker"]
+shape = SubResource("SegmentShape2D_t1ppf")
+
+[node name="LedgeCollisionChecker" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LedgeCollisionChecker"]
+position = Vector2(-1, 1)
+shape = SubResource("SegmentShape2D_kekkd")
