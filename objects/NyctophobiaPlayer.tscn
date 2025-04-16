@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://cib36sg3dy4n8"]
+[gd_scene load_steps=24 format=3 uid="uid://cib36sg3dy4n8"]
 
 [ext_resource type="Texture2D" uid="uid://6kdn00uoem5n" path="res://assets/PlayerSpriteAnimated/duo game player sprite sheet.png" id="1_3evso"]
 [ext_resource type="Script" uid="uid://bds5ci3jv4xs8" path="res://assets/Player script/nyctophobia_player.gd" id="1_t1ppf"]
@@ -147,6 +147,9 @@ height = 50.0
 a = Vector2(-10, 0)
 b = Vector2(12, 0)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_21y1p"]
+size = Vector2(24, 3)
+
 [node name="CharacterBody2D" type="CharacterBody2D" groups=["player"]]
 collision_layer = 2
 script = ExtResource("1_t1ppf")
@@ -190,3 +193,9 @@ position = Vector2(-4, 7)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BottomCollisionChecker"]
 position = Vector2(3, 13)
 shape = SubResource("SegmentShape2D_21y1p")
+
+[node name="JumpCheat" type="Area2D" parent="."]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="JumpCheat"]
+position = Vector2(0, 31.5)
+shape = SubResource("RectangleShape2D_21y1p")
