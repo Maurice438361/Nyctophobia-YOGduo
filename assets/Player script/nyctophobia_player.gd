@@ -21,6 +21,7 @@ var IsInClimbleArea: bool = false
 @onready var wall_check_top = $TopCollisionChecker
 @onready var wall_check_bottom = $BottomCollisionChecker
 @onready var ledge_check = $LedgeCollisionChecker
+@onready var jump_scum = $JumpCheat
 
 func is_touching_wall_full_side() -> bool:
 	var top_overlapping = wall_check_top.has_overlapping_bodies()
@@ -31,6 +32,10 @@ func is_touching_ledge_side() -> bool:
 	var wall_side_touched = wall_check_top.has_overlapping_bodies()
 	var ledge_clear = !ledge_check.has_overlapping_bodies()
 	return wall_side_touched and ledge_clear
+	
+func can_jump() -> bool:
+	var is_on_floor = jump_scum.has_overlapping_bodies()
+	return is_on_floor
 
 func is_pushing_against_wall(normal: Vector2) -> bool:
 	return (normal == Vector2(1.0, 0.0) and Input.is_action_pressed("Left")) or \
@@ -78,7 +83,7 @@ func _physics_process(delta):
 	
 	#Jump
 	
-	if Input.is_action_just_pressed("Jump") and is_on_floor():
+	if Input.is_action_just_pressed("Jump") and can_jump() and !WallCling and !HangingFromWall:
 		
 		velocity.y -= JUMP_FORCE
 		
@@ -140,8 +145,9 @@ func _physics_process(delta):
 	
 	#WallClimb
 	
-	if IsInClimbleArea and is_on_floor() and Input.is_action_just_pressed("Up"):
+	if IsInClimbleArea and Input.is_action_just_pressed("Up"):
 		Climbing = true
+		velocity.y = 0
 		
 	if Climbing:
 		
