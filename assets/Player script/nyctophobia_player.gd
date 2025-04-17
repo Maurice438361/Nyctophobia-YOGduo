@@ -17,6 +17,7 @@ var HangingFromWall: bool = false
 var LedgeGrabRest: bool = false
 var Climbing: bool = false
 var IsInClimbleArea: bool = false
+var InAir: bool = true
 
 @onready var wall_check_top = $TopCollisionChecker
 @onready var wall_check_bottom = $BottomCollisionChecker
@@ -89,6 +90,11 @@ func _physics_process(delta):
 		
 		play_anim("Jump")
 	
+	#land
+	if InAir and !is_on_floor():
+		InAir = false
+		play_anim("Jump_land")
+	
 	#LedgeGrab
 	
 	if !is_on_floor() and velocity.y > 0 and is_touching_ledge_side() and !LedgeGrabRest:
@@ -153,12 +159,15 @@ func _physics_process(delta):
 		
 		if Input.is_action_just_pressed("Up"):
 			velocity.y -= CLIMBING_SPEED
+			play_anim("Climb")
 			
 		if Input.is_action_just_pressed("Down"):
-			velocity.y += CLIMBING_SPEED
+			velocity.y += CLIMBING_SPEED 
+			play_anim("Climb")
 			
 		if !Input.is_action_pressed("Up") and !Input.is_action_pressed("Down"):
 			velocity.y = 0
+			play_anim("Climb_idle")
 			
 		if !IsInClimbleArea or Input.is_action_just_pressed("Jump"):
 			Climbing = false
