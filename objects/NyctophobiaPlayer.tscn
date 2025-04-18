@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://cib36sg3dy4n8"]
+[gd_scene load_steps=35 format=3 uid="uid://cib36sg3dy4n8"]
 
 [ext_resource type="Script" uid="uid://bds5ci3jv4xs8" path="res://assets/Player script/nyctophobia_player.gd" id="1_t1ppf"]
 [ext_resource type="Texture2D" uid="uid://by2jk5c7bmhfg" path="res://assets/PlayerSpriteAnimated/player_sprite_sheet.png" id="2_21y1p"]
@@ -58,6 +58,18 @@ region = Rect2(0, 192, 32, 64)
 [sub_resource type="AtlasTexture" id="AtlasTexture_q3a73"]
 atlas = ExtResource("2_21y1p")
 region = Rect2(32, 192, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sjivp"]
+atlas = ExtResource("2_21y1p")
+region = Rect2(0, 384, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dwgsh"]
+atlas = ExtResource("2_21y1p")
+region = Rect2(32, 384, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fv0bx"]
+atlas = ExtResource("2_21y1p")
+region = Rect2(64, 384, 32, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3sywi"]
 atlas = ExtResource("2_21y1p")
@@ -168,8 +180,22 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_q3a73")
 }],
-"loop": true,
+"loop": false,
 "name": &"Jump_land",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 0.2,
+"texture": SubResource("AtlasTexture_sjivp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dwgsh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fv0bx")
+}],
+"loop": false,
+"name": &"Ledge_pull",
 "speed": 5.0
 }, {
 "frames": [{
@@ -219,7 +245,7 @@ a = Vector2(-10, 0)
 b = Vector2(12, 0)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_21y1p"]
-size = Vector2(24, 3)
+size = Vector2(24, 1.5)
 
 [node name="CharacterBody2D" type="CharacterBody2D" groups=["player"]]
 collision_layer = 2
@@ -230,9 +256,7 @@ WALL_JUMP_GRACE = 1.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_oay2s")
-animation = &"Jump"
-frame = 3
-frame_progress = 1.0
+animation = &"Climb_idle"
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2, 2)
@@ -269,5 +293,5 @@ shape = SubResource("SegmentShape2D_21y1p")
 [node name="JumpCheat" type="Area2D" parent="."]
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="JumpCheat"]
-position = Vector2(0, 31.5)
+position = Vector2(0, 33)
 shape = SubResource("RectangleShape2D_21y1p")

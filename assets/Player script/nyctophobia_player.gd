@@ -84,15 +84,17 @@ func _physics_process(delta):
 	
 	#Jump
 	
-	if Input.is_action_just_pressed("Jump") and can_jump() and !WallCling and !HangingFromWall:
+	if Input.is_action_just_pressed("Jump") and !InAir and !WallCling and !HangingFromWall and can_jump():
 		
 		velocity.y -= JUMP_FORCE
+		InAir = true
 		
-		play_anim("Jump")
+		play_anim("Jump") 
 	
 	#land
-	if InAir and !is_on_floor():
+	if InAir and is_on_floor() and velocity.y == 0:
 		InAir = false
+		
 		play_anim("Jump_land")
 	
 	#LedgeGrab
@@ -101,8 +103,10 @@ func _physics_process(delta):
 		LedgeGrabRest = true
 		CantWalk = true
 		velocity.y = 0
+		velocity.x = 0
 		HangingFromWall = true
-	
+		play_anim("Climb_idle")
+
 	if LedgeGrabRest and !is_touching_ledge_side() or LedgeGrabRest and is_on_floor():
 		LedgeGrabRest = false
 	
@@ -116,6 +120,8 @@ func _physics_process(delta):
 			CantWalk = false
 			HangingFromWall = false
 			velocity.y -= 300
+			play_anim("Ledge_pull")
+			InAir = true
 	
 	#WallJump
 	
@@ -125,8 +131,11 @@ func _physics_process(delta):
 			WallCling = true
 			WallClingRest = true
 			velocity.y = 0
+			play_anim("Climb_idle")
 			await get_tree().create_timer(WALL_CLING_TIME).timeout
 			WallCling = false
+			InAir = true
+			play_anim("Ledge_pull")
 			
 	
 	if WallClingRest:
@@ -140,12 +149,16 @@ func _physics_process(delta):
 		var wallCollisionSide = get_wall_normal()
 		if  !is_pushing_against_wall(wallCollisionSide):
 			WallCling = false
+			InAir = true
+			play_anim("Ledge_pull")
 		
 		if Input.is_action_just_pressed("Jump"):
 			WallCling = false
 			CantWalk = true
 			velocity.y -= WALL_JUMP_FORCE
 			velocity.x = get_wall_normal().x * WALL_PUSH_FORCE
+			play_anim("Ledge_pull")
+			InAir = true
 			await get_tree().create_timer(WALL_JUMP_GRACE).timeout
 			CantWalk = false
 	
