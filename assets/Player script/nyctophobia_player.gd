@@ -71,10 +71,11 @@ func _physics_process(delta):
 	
 	#Rotate
 	
-	if direction == 1:
-		$AnimatedSprite2D.flip_h = false
-	elif direction == -1:
-		$AnimatedSprite2D.flip_h = true
+	if !HangingFromWall:
+		if direction == 1:
+			$AnimatedSprite2D.flip_h = false
+		elif direction == -1:
+			$AnimatedSprite2D.flip_h = true
 	
 	#Gravity
 	
