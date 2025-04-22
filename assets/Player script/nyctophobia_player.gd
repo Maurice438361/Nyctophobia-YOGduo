@@ -9,8 +9,13 @@ extends CharacterBody2D
 @export var WALL_PUSH_FORCE : int = 300
 @export var WALL_JUMP_GRACE : float = 0.2
 @export var CLIMBING_SPEED : int = 100
-@export var JUMP_SFX : AudioStream
-@export var FOOTSTEP_SFX : AudioStream
+@export var GRASS_JUMP_SFX : AudioStream
+@export var WOOD_JUMP_SFX : AudioStream
+@export var GRASS_FOOTSTEP_SFX : AudioStream
+@export var WOOD_FOOTSTEP_SFX : AudioStream
+@export var WALL_JUMP_SFX : AudioStream
+@export var GRASS_LANDING_SFX : AudioStream
+@export var WOOD_LANDING_SFX : AudioStream
 
 var WallCling: bool = false
 var WallClingRest: bool = false
@@ -29,6 +34,7 @@ var FootStepFrames: Array = [4,9]
 @onready var ledge_check = $LedgeCollisionChecker
 @onready var jump_scum = $JumpCheat
 @onready var player_sfx = $Player_sfx
+@onready var ground_ray = $AnimatedSprite2D/GroundRay
 
 func is_touching_wall_full_side() -> bool:
 	var top_overlapping = wall_check_top.has_overlapping_bodies()
@@ -73,7 +79,9 @@ func _physics_process(delta):
 		if is_on_floor():
 			play_anim("Run")
 			
-		
+		else:
+			InAir = true
+			
 	elif !CantWalk: 
 		
 		velocity.x = 0
@@ -103,14 +111,35 @@ func _physics_process(delta):
 		InAir = true
 		
 		play_anim("Jump") 
-		load_sfx(JUMP_SFX)
-		player_sfx.play()
+		if ground_ray.is_colliding():
+			var collider = ground_ray.get_collider()
+			if collider.is_in_group("Grass"):
+				load_sfx(GRASS_JUMP_SFX)
+				player_sfx.play()
+			if collider.is_in_group("Tree"):
+				load_sfx(WOOD_JUMP_SFX)
+				player_sfx.play()
+		
+	#Fall
+	
+	if InAir and velocity.y > 0:
+		
+		play_anim("Fall")
 	
 	#land
 	if InAir and is_on_floor() and velocity.y == 0:
 		InAir = false
 		
 		play_anim("Jump_land")
+		
+		if ground_ray.is_colliding():
+			var collider = ground_ray.get_collider()
+			if collider.is_in_group("Grass"):
+				load_sfx(GRASS_LANDING_SFX)
+				player_sfx.play()
+			if collider.is_in_group("Tree"):
+				load_sfx(WOOD_LANDING_SFX)
+				player_sfx.play()
 	
 	#LedgeGrab
 	
@@ -199,11 +228,19 @@ func _physics_process(delta):
 			
 		if !IsInClimbleArea or Input.is_action_just_pressed("Jump"):
 			Climbing = false
+			InAir = true
 		
 	move_and_slide()
 
 
 func _on_sprite_frame_changed():
 	if(animated_sprite_2d.animation == "Run"):
-		load_sfx(FOOTSTEP_SFX)
-		if animated_sprite_2d.frame in FootStepFrames : player_sfx.play()
+		if ground_ray.is_colliding():
+			if animated_sprite_2d.frame in FootStepFrames:
+				var collider = ground_ray.get_collider()
+				if collider.is_in_group("Grass"):
+					load_sfx(GRASS_FOOTSTEP_SFX)
+					player_sfx.play()
+				if collider.is_in_group("Tree"):
+					load_sfx(WOOD_FOOTSTEP_SFX)
+					player_sfx.play()
