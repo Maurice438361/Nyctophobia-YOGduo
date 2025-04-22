@@ -9,6 +9,8 @@ extends CharacterBody2D
 @export var WALL_PUSH_FORCE : int = 300
 @export var WALL_JUMP_GRACE : float = 0.2
 @export var CLIMBING_SPEED : int = 100
+@export var JUMP_SFX : AudioStream
+@export var FOOTSTEP_SFX : AudioStream
 
 var WallCling: bool = false
 var WallClingRest: bool = false
@@ -19,10 +21,14 @@ var Climbing: bool = false
 var IsInClimbleArea: bool = false
 var InAir: bool = true
 
+var FootStepFrames: Array = [4,9]
+
+@onready var animated_sprite_2d = $AnimatedSprite2D
 @onready var wall_check_top = $TopCollisionChecker
 @onready var wall_check_bottom = $BottomCollisionChecker
 @onready var ledge_check = $LedgeCollisionChecker
 @onready var jump_scum = $JumpCheat
+@onready var player_sfx = $Player_sfx
 
 func is_touching_wall_full_side() -> bool:
 	var top_overlapping = wall_check_top.has_overlapping_bodies()
@@ -43,11 +49,16 @@ func is_pushing_against_wall(normal: Vector2) -> bool:
 		   (normal == Vector2(-1.0, 0.0) and Input.is_action_pressed("Right"))
 		
 func play_anim(name: String) -> void:
-	if $AnimatedSprite2D.animation != name:
-		$AnimatedSprite2D.play(name)
+	if animated_sprite_2d.animation != name:
+		animated_sprite_2d.play(name)
 		
 func set_climbing_area_overlap(value: bool) -> void:
 	IsInClimbleArea = value
+
+func load_sfx(sfx) :
+	if player_sfx.stream != sfx:
+		player_sfx.stop()
+		player_sfx.stream = sfx
 
 func _physics_process(delta):
 	
@@ -61,6 +72,7 @@ func _physics_process(delta):
 		
 		if is_on_floor():
 			play_anim("Run")
+			
 		
 	elif !CantWalk: 
 		
@@ -73,9 +85,9 @@ func _physics_process(delta):
 	
 	if !HangingFromWall:
 		if direction == 1:
-			$AnimatedSprite2D.flip_h = false
+			animated_sprite_2d.flip_h = false
 		elif direction == -1:
-			$AnimatedSprite2D.flip_h = true
+			animated_sprite_2d.flip_h = true
 	
 	#Gravity
 	
@@ -91,6 +103,8 @@ func _physics_process(delta):
 		InAir = true
 		
 		play_anim("Jump") 
+		load_sfx(JUMP_SFX)
+		player_sfx.play()
 	
 	#land
 	if InAir and is_on_floor() and velocity.y == 0:
@@ -187,3 +201,9 @@ func _physics_process(delta):
 			Climbing = false
 		
 	move_and_slide()
+
+
+func _on_sprite_frame_changed():
+	if(animated_sprite_2d.animation == "Run"):
+		load_sfx(FOOTSTEP_SFX)
+		if animated_sprite_2d.frame in FootStepFrames : player_sfx.play()

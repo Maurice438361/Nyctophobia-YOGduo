@@ -1,7 +1,9 @@
-[gd_scene load_steps=35 format=3 uid="uid://cib36sg3dy4n8"]
+[gd_scene load_steps=37 format=3 uid="uid://cib36sg3dy4n8"]
 
 [ext_resource type="Script" uid="uid://bds5ci3jv4xs8" path="res://assets/Player script/nyctophobia_player.gd" id="1_t1ppf"]
 [ext_resource type="Texture2D" uid="uid://by2jk5c7bmhfg" path="res://assets/PlayerSpriteAnimated/player_sprite_sheet.png" id="2_21y1p"]
+[ext_resource type="AudioStream" uid="uid://bigm74cvgw8fk" path="res://assets/Audio/grass_walk_1.wav" id="2_f55vd"]
+[ext_resource type="AudioStream" uid="uid://b272tfh5jso7g" path="res://assets/Audio/grass_walk_2.wav" id="3_aiss1"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_f55vd"]
 atlas = ExtResource("2_21y1p")
@@ -253,10 +255,12 @@ script = ExtResource("1_t1ppf")
 WALL_JUMP_FORCE = 300
 WALL_PUSH_FORCE = 100
 WALL_JUMP_GRACE = 1.0
+JUMP_SFX = ExtResource("2_f55vd")
+FOOTSTEP_SFX = ExtResource("3_aiss1")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_oay2s")
-animation = &"Climb_idle"
+animation = &"Run"
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2, 2)
@@ -295,3 +299,9 @@ shape = SubResource("SegmentShape2D_21y1p")
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="JumpCheat"]
 position = Vector2(0, 33)
 shape = SubResource("RectangleShape2D_21y1p")
+
+[node name="Player_sfx" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+bus = &"sfx"
+
+[connection signal="frame_changed" from="AnimatedSprite2D" to="." method="_on_sprite_frame_changed"]
