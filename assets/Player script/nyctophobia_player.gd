@@ -11,11 +11,16 @@ extends CharacterBody2D
 @export var CLIMBING_SPEED : int = 100
 @export var GRASS_JUMP_SFX : AudioStream
 @export var WOOD_JUMP_SFX : AudioStream
+@export var ROCK_JUMP_SFX : AudioStream
 @export var GRASS_FOOTSTEP_SFX : AudioStream
 @export var WOOD_FOOTSTEP_SFX : AudioStream
+@export var ROCK_FOOTSEP_SFX : AudioStream
 @export var WALL_JUMP_SFX : AudioStream
 @export var GRASS_LANDING_SFX : AudioStream
 @export var WOOD_LANDING_SFX : AudioStream
+@export var ROCK_LANDING_SFX : AudioStream
+@export var LEDGE_PULL_SFX : AudioStream
+@export var CLIMBING_SFX : AudioStream
 
 var WallCling: bool = false
 var WallClingRest: bool = false
@@ -119,6 +124,9 @@ func _physics_process(delta):
 			if collider.is_in_group("Tree"):
 				load_sfx(WOOD_JUMP_SFX)
 				player_sfx.play()
+			if collider.is_in_group("Rock"):
+				load_sfx(ROCK_JUMP_SFX)
+				player_sfx.play()
 		
 	#Fall
 	
@@ -139,6 +147,9 @@ func _physics_process(delta):
 				player_sfx.play()
 			if collider.is_in_group("Tree"):
 				load_sfx(WOOD_LANDING_SFX)
+				player_sfx.play()
+			if collider.is_in_group("Rock"):
+				load_sfx(ROCK_LANDING_SFX)
 				player_sfx.play()
 	
 	#LedgeGrab
@@ -165,6 +176,8 @@ func _physics_process(delta):
 			HangingFromWall = false
 			velocity.y -= 300
 			play_anim("Ledge_pull")
+			load_sfx(LEDGE_PULL_SFX)
+			player_sfx.play()
 			InAir = true
 	
 	#WallJump
@@ -202,6 +215,8 @@ func _physics_process(delta):
 			velocity.y -= WALL_JUMP_FORCE
 			velocity.x = get_wall_normal().x * WALL_PUSH_FORCE
 			play_anim("Ledge_pull")
+			load_sfx(WALL_JUMP_SFX)
+			player_sfx.play()
 			InAir = true
 			await get_tree().create_timer(WALL_JUMP_GRACE).timeout
 			CantWalk = false
@@ -229,6 +244,9 @@ func _physics_process(delta):
 		if !IsInClimbleArea or Input.is_action_just_pressed("Jump"):
 			Climbing = false
 			InAir = true
+			
+		load_sfx(CLIMBING_SFX)
+		player_sfx.play()
 		
 	move_and_slide()
 
@@ -243,4 +261,7 @@ func _on_sprite_frame_changed():
 					player_sfx.play()
 				if collider.is_in_group("Tree"):
 					load_sfx(WOOD_FOOTSTEP_SFX)
+					player_sfx.play()
+				if collider.is_in_group("Rock"):
+					load_sfx(ROCK_FOOTSEP_SFX)
 					player_sfx.play()

@@ -1,13 +1,7 @@
-[gd_scene load_steps=43 format=3 uid="uid://cib36sg3dy4n8"]
+[gd_scene load_steps=37 format=3 uid="uid://cib36sg3dy4n8"]
 
 [ext_resource type="Script" uid="uid://bds5ci3jv4xs8" path="res://assets/Player script/nyctophobia_player.gd" id="1_t1ppf"]
 [ext_resource type="Texture2D" uid="uid://by2jk5c7bmhfg" path="res://assets/PlayerSpriteAnimated/player_sprite_sheet.png" id="2_21y1p"]
-[ext_resource type="AudioStream" uid="uid://bvj5m8nrvxlmx" path="res://assets/Audio/grass_jump.wav" id="2_v0cpy"]
-[ext_resource type="AudioStream" uid="uid://b68p4j6qmywxg" path="res://assets/Audio/Wood_jump.wav" id="3_eykcb"]
-[ext_resource type="AudioStream" uid="uid://bsd4w6st3njhe" path="res://assets/Audio/grass_walk.wav" id="4_rxjt5"]
-[ext_resource type="AudioStream" uid="uid://b8ohnkl1co2pd" path="res://assets/Audio/Wood_walk.wav" id="5_q3a73"]
-[ext_resource type="AudioStream" uid="uid://c3hm034u28ggg" path="res://assets/Audio/grass_land.wav" id="6_eykcb"]
-[ext_resource type="AudioStream" uid="uid://dkxqafwa5kefs" path="res://assets/Audio/Wood_land.wav" id="7_rxjt5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_f55vd"]
 atlas = ExtResource("2_21y1p")
@@ -278,12 +272,6 @@ script = ExtResource("1_t1ppf")
 WALL_JUMP_FORCE = 300
 WALL_PUSH_FORCE = 100
 WALL_JUMP_GRACE = 1.0
-GRASS_JUMP_SFX = ExtResource("2_v0cpy")
-WOOD_JUMP_SFX = ExtResource("3_eykcb")
-GRASS_FOOTSTEP_SFX = ExtResource("4_rxjt5")
-WOOD_FOOTSTEP_SFX = ExtResource("5_q3a73")
-GRASS_LANDING_SFX = ExtResource("6_eykcb")
-WOOD_LANDING_SFX = ExtResource("7_rxjt5")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_oay2s")
