@@ -1,7 +1,18 @@
-[gd_scene load_steps=37 format=3 uid="uid://cib36sg3dy4n8"]
+[gd_scene load_steps=48 format=3 uid="uid://cib36sg3dy4n8"]
 
 [ext_resource type="Script" uid="uid://bds5ci3jv4xs8" path="res://assets/Player script/nyctophobia_player.gd" id="1_t1ppf"]
 [ext_resource type="Texture2D" uid="uid://by2jk5c7bmhfg" path="res://assets/PlayerSpriteAnimated/player_sprite_sheet.png" id="2_21y1p"]
+[ext_resource type="AudioStream" uid="uid://bvj5m8nrvxlmx" path="res://assets/Audio/grass_jump.wav" id="2_jpfve"]
+[ext_resource type="AudioStream" uid="uid://b68p4j6qmywxg" path="res://assets/Audio/Wood_jump.wav" id="3_24h1s"]
+[ext_resource type="AudioStream" uid="uid://bgjgwrv6x2drp" path="res://assets/Audio/stone_jump.wav" id="4_3sywi"]
+[ext_resource type="AudioStream" uid="uid://bsd4w6st3njhe" path="res://assets/Audio/grass_walk.wav" id="5_8gbsv"]
+[ext_resource type="AudioStream" uid="uid://b8ohnkl1co2pd" path="res://assets/Audio/Wood_walk.wav" id="6_ycphv"]
+[ext_resource type="AudioStream" uid="uid://dsiw7h8v4udmy" path="res://assets/Audio/Stone_footstep.wav" id="7_dvxgq"]
+[ext_resource type="AudioStream" uid="uid://cvnv4catgxyui" path="res://assets/Audio/Wall_jump.wav" id="8_g50vo"]
+[ext_resource type="AudioStream" uid="uid://c3hm034u28ggg" path="res://assets/Audio/grass_land.wav" id="9_sa3b2"]
+[ext_resource type="AudioStream" uid="uid://dkxqafwa5kefs" path="res://assets/Audio/Wood_land.wav" id="10_4krb7"]
+[ext_resource type="AudioStream" uid="uid://cs4lk72k6ihvc" path="res://assets/Audio/Stone_land.wav" id="11_m0k0a"]
+[ext_resource type="AudioStream" uid="uid://b1lrii3wb7fr0" path="res://assets/Audio/climbing.wav" id="12_24h1s"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_f55vd"]
 atlas = ExtResource("2_21y1p")
@@ -272,15 +283,30 @@ script = ExtResource("1_t1ppf")
 WALL_JUMP_FORCE = 300
 WALL_PUSH_FORCE = 100
 WALL_JUMP_GRACE = 1.0
+GRASS_JUMP_SFX = ExtResource("2_jpfve")
+WOOD_JUMP_SFX = ExtResource("3_24h1s")
+ROCK_JUMP_SFX = ExtResource("4_3sywi")
+GRASS_FOOTSTEP_SFX = ExtResource("5_8gbsv")
+WOOD_FOOTSTEP_SFX = ExtResource("6_ycphv")
+ROCK_FOOTSEP_SFX = ExtResource("7_dvxgq")
+WALL_JUMP_SFX = ExtResource("8_g50vo")
+GRASS_LANDING_SFX = ExtResource("9_sa3b2")
+WOOD_LANDING_SFX = ExtResource("10_4krb7")
+ROCK_LANDING_SFX = ExtResource("11_m0k0a")
+GRASS_LEDGE_PULL_SFX = ExtResource("2_jpfve")
+WOOD_LEDGE_PULL_SFX = ExtResource("3_24h1s")
+CLIMBING_SFX = ExtResource("12_24h1s")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_oay2s")
-animation = &"Fall"
-frame = 1
-frame_progress = 0.881941
+animation = &"Climb"
 
 [node name="GroundRay" type="RayCast2D" parent="AnimatedSprite2D"]
 target_position = Vector2(0, 34)
+
+[node name="LedgeRay" type="RayCast2D" parent="AnimatedSprite2D"]
+position = Vector2(0, -5)
+target_position = Vector2(12, 0)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2, 2)
