@@ -19,7 +19,8 @@ extends CharacterBody2D
 @export var GRASS_LANDING_SFX : AudioStream
 @export var WOOD_LANDING_SFX : AudioStream
 @export var ROCK_LANDING_SFX : AudioStream
-@export var LEDGE_PULL_SFX : AudioStream
+@export var GRASS_LEDGE_PULL_SFX : AudioStream
+@export var WOOD_LEDGE_PULL_SFX : AudioStream
 @export var CLIMBING_SFX : AudioStream
 
 var WallCling: bool = false
@@ -32,6 +33,7 @@ var IsInClimbleArea: bool = false
 var InAir: bool = true
 
 var FootStepFrames: Array = [4,9]
+var VineGrabFrames: Array = [0,2]
 
 @onready var animated_sprite_2d = $AnimatedSprite2D
 @onready var wall_check_top = $TopCollisionChecker
@@ -40,6 +42,7 @@ var FootStepFrames: Array = [4,9]
 @onready var jump_scum = $JumpCheat
 @onready var player_sfx = $Player_sfx
 @onready var ground_ray = $AnimatedSprite2D/GroundRay
+@onready var ledge_ray = $AnimatedSprite2D/LedgeRay
 
 func is_touching_wall_full_side() -> bool:
 	var top_overlapping = wall_check_top.has_overlapping_bodies()
@@ -70,6 +73,7 @@ func load_sfx(sfx) :
 	if player_sfx.stream != sfx:
 		player_sfx.stop()
 		player_sfx.stream = sfx
+		player_sfx.pitch_scale = randf_range(0.8, 1.2)
 
 func _physics_process(delta):
 	
@@ -155,12 +159,14 @@ func _physics_process(delta):
 	#LedgeGrab
 	
 	if !is_on_floor() and velocity.y > 0 and is_touching_ledge_side() and !LedgeGrabRest:
-		LedgeGrabRest = true
-		CantWalk = true
-		velocity.y = 0
-		velocity.x = 0
-		HangingFromWall = true
-		play_anim("Climb_idle")
+		var wallCollisionSide = get_wall_normal()
+		if is_pushing_against_wall(wallCollisionSide):
+			LedgeGrabRest = true
+			CantWalk = true
+			velocity.y = 0
+			velocity.x = 0
+			HangingFromWall = true
+			play_anim("Climb_idle")
 
 	if LedgeGrabRest and !is_touching_ledge_side() or LedgeGrabRest and is_on_floor():
 		LedgeGrabRest = false
@@ -176,8 +182,14 @@ func _physics_process(delta):
 			HangingFromWall = false
 			velocity.y -= 300
 			play_anim("Ledge_pull")
-			load_sfx(LEDGE_PULL_SFX)
-			player_sfx.play()
+			if ledge_ray.is_colliding():
+				var collider = ledge_ray.get_collider()
+				if collider.is_in_group("Grass"):
+					load_sfx(GRASS_LEDGE_PULL_SFX)
+					player_sfx.play()
+				if collider.is_in_group("Tree"):
+					load_sfx(WOOD_LEDGE_PULL_SFX)
+					player_sfx.play()
 			InAir = true
 	
 	#WallJump
@@ -228,6 +240,7 @@ func _physics_process(delta):
 		velocity.y = 0
 		
 	if Climbing:
+		InAir = false
 		
 		if Input.is_action_just_pressed("Up"):
 			velocity.y -= CLIMBING_SPEED
@@ -244,9 +257,6 @@ func _physics_process(delta):
 		if !IsInClimbleArea or Input.is_action_just_pressed("Jump"):
 			Climbing = false
 			InAir = true
-			
-		load_sfx(CLIMBING_SFX)
-		player_sfx.play()
 		
 	move_and_slide()
 
@@ -265,3 +275,7 @@ func _on_sprite_frame_changed():
 				if collider.is_in_group("Rock"):
 					load_sfx(ROCK_FOOTSEP_SFX)
 					player_sfx.play()
+	if(animated_sprite_2d.animation == "Climb"):
+		if animated_sprite_2d.frame in VineGrabFrames:
+			load_sfx(CLIMBING_SFX)
+			player_sfx.play()
