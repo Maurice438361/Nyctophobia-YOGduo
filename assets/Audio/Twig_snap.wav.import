@@ -2,13 +2,13 @@
 
 importer="wav"
 type="AudioStreamWAV"
-uid="uid://ckcibm6qk31m"
-path="res://.godot/imported/Wood_jump.wav-08fc0b45730f86e5fd37c73841f3a72d.sample"
+uid="uid://b6m0vwsjuuakn"
+path="res://.godot/imported/Twig_snap.wav-890e53547f6eeaaca0a416f79a5efba7.sample"
 
 [deps]
 
-source_file="res://assets/Audio/Wood_jump.wav"
-dest_files=["res://.godot/imported/Wood_jump.wav-08fc0b45730f86e5fd37c73841f3a72d.sample"]
+source_file="res://assets/Audio/Twig_snap.wav"
+dest_files=["res://.godot/imported/Twig_snap.wav-890e53547f6eeaaca0a416f79a5efba7.sample"]
 
 [params]
 
