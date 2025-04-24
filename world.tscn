@@ -292,7 +292,7 @@ shape = SubResource("RectangleShape2D_dwbse")
 [node name="Tree2" type="Node2D" parent="ObjectwCollisionLayer"]
 position = Vector2(2689, 120)
 
-[node name="StaticBody2D" type="StaticBody2D" parent="ObjectwCollisionLayer/Tree2"]
+[node name="StaticBody2D" type="StaticBody2D" parent="ObjectwCollisionLayer/Tree2" groups=["Tree"]]
 
 [node name="Sprite2D" type="Sprite2D" parent="ObjectwCollisionLayer/Tree2/StaticBody2D"]
 texture = ExtResource("5_70uel")
@@ -335,12 +335,12 @@ polygon = PackedVector2Array(-16, -49, 8, -49, 14, -46, 18, -49, 21, -49, 21, -4
 [node name="Tree3" type="Node2D" parent="ObjectwCollisionLayer"]
 position = Vector2(3140, 120)
 
-[node name="StaticBody2D" type="StaticBody2D" parent="ObjectwCollisionLayer/Tree3"]
+[node name="StaticBody2D" type="StaticBody2D" parent="ObjectwCollisionLayer/Tree3" groups=["Tree"]]
 
 [node name="Sprite2D" type="Sprite2D" parent="ObjectwCollisionLayer/Tree3/StaticBody2D"]
 texture = ExtResource("7_il2jm")
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ObjectwCollisionLayer/Tree3/StaticBody2D"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ObjectwCollisionLayer/Tree3/StaticBody2D" groups=["Tree"]]
 polygon = PackedVector2Array(-153, 181, -61, 177, -24, 164, -25, 204, -58, 193, -125, 196)
 
 [node name="HiddenCave1Backdrop" type="Node2D" parent="."]
