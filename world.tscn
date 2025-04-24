@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=4 uid="uid://4m8x1ew1scsr"]
+[gd_scene load_steps=34 format=4 uid="uid://4m8x1ew1scsr"]
 
 [ext_resource type="Texture2D" uid="uid://bybmfoi4brm2f" path="res://assets/Playtest placeholders/Selfmade placeholders.png" id="1_f3sb7"]
 [ext_resource type="PackedScene" uid="uid://cib36sg3dy4n8" path="res://objects/NyctophobiaPlayer.tscn" id="2_fj7yv"]
@@ -21,6 +21,7 @@
 [ext_resource type="AudioStream" uid="uid://d3lnqpm732oke" path="res://assets/Audio/russel.wav" id="19_bc84e"]
 [ext_resource type="Script" uid="uid://bcufp4oxgj732" path="res://background_sounds.gd" id="20_26xuy"]
 [ext_resource type="AudioStream" uid="uid://bfmtqy3ko1264" path="res://assets/Audio/backgroundNoise.mp3" id="21_bc84e"]
+[ext_resource type="Script" uid="uid://b1xup4pe4xb7l" path="res://wind.gd" id="22_wukud"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fj7yv"]
 texture = ExtResource("1_f3sb7")
@@ -297,6 +298,7 @@ texture = ExtResource("5_70uel")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ObjectwCollisionLayer/Tree2/StaticBody2D" groups=["Tree"]]
 polygon = PackedVector2Array(141, 84, 67, 89, 43, 84, 39, 127, 61, 113, 88, 107, 120, 104)
+one_way_collision = true
 
 [node name="Climbing_space2" type="Area2D" parent="ObjectwCollisionLayer/Tree2/StaticBody2D"]
 position = Vector2(-195, 195)
@@ -433,9 +435,10 @@ script = ExtResource("20_26xuy")
 
 [node name="Wind" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("21_bc84e")
-volume_db = 3.25
+volume_db = 9.75
 autoplay = true
 parameters/looping = true
+script = ExtResource("22_wukud")
 
 [connection signal="body_entered" from="ObjectwCollisionLayer/Tree1/Climbing_space" to="ObjectwCollisionLayer/Tree1/Climbing_space" method="_on_body_entered"]
 [connection signal="body_exited" from="ObjectwCollisionLayer/Tree1/Climbing_space" to="ObjectwCollisionLayer/Tree1/Climbing_space" method="_on_body_exited"]
@@ -445,3 +448,5 @@ parameters/looping = true
 [connection signal="body_exited" from="ObjectwCollisionLayer/Tree2/StaticBody2D/Climbing_space2" to="ObjectwCollisionLayer/Tree2/StaticBody2D/Climbing_space2" method="_on_body_exited"]
 [connection signal="body_entered" from="ObjectwCollisionLayer/Tree2/StaticBody2D/Climbing_space3" to="ObjectwCollisionLayer/Tree2/StaticBody2D/Climbing_space3" method="_on_body_entered"]
 [connection signal="body_exited" from="ObjectwCollisionLayer/Tree2/StaticBody2D/Climbing_space3" to="ObjectwCollisionLayer/Tree2/StaticBody2D/Climbing_space3" method="_on_body_exited"]
+[connection signal="finished" from="Wind" to="ObjectwCollisionLayer/Tree1/Climbing_space" method="_on_wind_finished"]
+[connection signal="finished" from="Wind" to="Wind" method="_on_finished"]

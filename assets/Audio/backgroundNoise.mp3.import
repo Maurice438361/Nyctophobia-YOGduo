@@ -13,7 +13,7 @@ dest_files=["res://.godot/imported/backgroundNoise.mp3-98945544ff4a3c2dc4b5bceda
 [params]
 
 loop=false
-loop_offset=0
-bpm=0
+loop_offset=1.0
+bpm=0.0
 beat_count=0
 bar_beats=4
