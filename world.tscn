@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=4 uid="uid://4m8x1ew1scsr"]
+[gd_scene load_steps=38 format=4 uid="uid://4m8x1ew1scsr"]
 
 [ext_resource type="Texture2D" uid="uid://bybmfoi4brm2f" path="res://assets/Playtest placeholders/Selfmade placeholders.png" id="1_f3sb7"]
 [ext_resource type="PackedScene" uid="uid://cib36sg3dy4n8" path="res://objects/NyctophobiaPlayer.tscn" id="2_fj7yv"]
@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://bcqejwdrj08ej" path="res://assets/Sprites/background_layer2.png" id="8_2o6r5"]
 [ext_resource type="Texture2D" uid="uid://ck7felafywrq8" path="res://assets/Objects/Tree1.png" id="8_wjb0r"]
 [ext_resource type="Texture2D" uid="uid://pi1pfe0ld563" path="res://assets/Sprites/background_layer3.png" id="9_70uel"]
+[ext_resource type="Texture2D" uid="uid://dwe8pfyya3bu5" path="res://assets/Objects/Cabin1.png" id="9_bo7i5"]
 [ext_resource type="Texture2D" uid="uid://defm16ubondpg" path="res://assets/Objects/HiddenCave1.png" id="9_hiqwa"]
 [ext_resource type="Texture2D" uid="uid://c4b6qxlaafiou" path="res://assets/Sprites/BackGroundUnluckyDeer.png" id="9_wjb0r"]
 [ext_resource type="Texture2D" uid="uid://b32m8vurcod2f" path="res://assets/Sprites/background_layer4.png" id="10_hiqwa"]
@@ -357,6 +358,18 @@ texture = ExtResource("8_wjb0r")
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ObjectwCollisionLayer/Tree4/StaticBody2D"]
 polygon = PackedVector2Array(38, 315, 21, 231, 42, 87, 24, 28, -35, 28, -36, 318)
 
+[node name="Cabin1" type="Node2D" parent="ObjectwCollisionLayer"]
+position = Vector2(193, 597)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="ObjectwCollisionLayer/Cabin1"]
+
+[node name="Sprite2D" type="Sprite2D" parent="ObjectwCollisionLayer/Cabin1/StaticBody2D"]
+position = Vector2(45, -81)
+texture = ExtResource("9_bo7i5")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ObjectwCollisionLayer/Cabin1/StaticBody2D"]
+polygon = PackedVector2Array(165, -10, 186, -2, -93, -2, -93, -9)
+
 [node name="HiddenCave1Backdrop" type="Node2D" parent="."]
 
 [node name="StaticBody2D" type="StaticBody2D" parent="HiddenCave1Backdrop"]
@@ -371,7 +384,7 @@ scale = Vector2(0.207812, 0.207812)
 texture = ExtResource("9_wjb0r")
 
 [node name="CharacterBody2D" parent="." instance=ExtResource("2_fj7yv")]
-position = Vector2(132, 559)
+position = Vector2(323, 551)
 
 [node name="GrassLayer" type="TileMapLayer" parent="." groups=["Grass"]]
 position = Vector2(-8, -23)
