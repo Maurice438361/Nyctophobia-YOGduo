@@ -361,13 +361,13 @@ polygon = PackedVector2Array(38, 315, 21, 231, 42, 87, 24, 28, -35, 28, -36, 318
 [node name="Cabin1" type="Node2D" parent="ObjectwCollisionLayer"]
 position = Vector2(193, 597)
 
-[node name="StaticBody2D" type="StaticBody2D" parent="ObjectwCollisionLayer/Cabin1"]
+[node name="StaticBody2D" type="StaticBody2D" parent="ObjectwCollisionLayer/Cabin1" groups=["Tree"]]
 
 [node name="Sprite2D" type="Sprite2D" parent="ObjectwCollisionLayer/Cabin1/StaticBody2D"]
 position = Vector2(45, -81)
 texture = ExtResource("9_bo7i5")
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ObjectwCollisionLayer/Cabin1/StaticBody2D"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ObjectwCollisionLayer/Cabin1/StaticBody2D" groups=["Tree"]]
 polygon = PackedVector2Array(165, -10, 186, -2, -93, -2, -93, -9)
 
 [node name="HiddenCave1Backdrop" type="Node2D" parent="."]
@@ -475,6 +475,7 @@ centered = false
 
 [node name="BackgroundSounds" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_cbp6q")
+volume_db = -10.806
 script = ExtResource("20_26xuy")
 
 [node name="Wind" type="AudioStreamPlayer2D" parent="."]
@@ -492,5 +493,4 @@ script = ExtResource("22_wukud")
 [connection signal="body_exited" from="ObjectwCollisionLayer/Tree2/StaticBody2D/Climbing_space2" to="ObjectwCollisionLayer/Tree2/StaticBody2D/Climbing_space2" method="_on_body_exited"]
 [connection signal="body_entered" from="ObjectwCollisionLayer/Tree2/StaticBody2D/Climbing_space3" to="ObjectwCollisionLayer/Tree2/StaticBody2D/Climbing_space3" method="_on_body_entered"]
 [connection signal="body_exited" from="ObjectwCollisionLayer/Tree2/StaticBody2D/Climbing_space3" to="ObjectwCollisionLayer/Tree2/StaticBody2D/Climbing_space3" method="_on_body_exited"]
-[connection signal="finished" from="Wind" to="ObjectwCollisionLayer/Tree1/Climbing_space" method="_on_wind_finished"]
 [connection signal="finished" from="Wind" to="Wind" method="_on_finished"]

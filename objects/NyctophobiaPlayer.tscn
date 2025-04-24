@@ -179,10 +179,10 @@ animations = [{
 "speed": 5.0
 }, {
 "frames": [{
-"duration": 1.0,
+"duration": 2.5,
 "texture": SubResource("AtlasTexture_21y1p")
 }, {
-"duration": 1.0,
+"duration": 2.5,
 "texture": SubResource("AtlasTexture_eykcb")
 }],
 "loop": true,
@@ -305,7 +305,8 @@ CLIMBING_SFX = ExtResource("12_24h1s")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_oay2s")
-animation = &"Climb"
+animation = &"Idle"
+frame_progress = 0.960501
 
 [node name="GroundRay" type="RayCast2D" parent="AnimatedSprite2D"]
 target_position = Vector2(0, 38)
