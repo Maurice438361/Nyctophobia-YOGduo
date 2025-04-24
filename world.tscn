@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=4 uid="uid://4m8x1ew1scsr"]
+[gd_scene load_steps=36 format=4 uid="uid://4m8x1ew1scsr"]
 
 [ext_resource type="Texture2D" uid="uid://bybmfoi4brm2f" path="res://assets/Playtest placeholders/Selfmade placeholders.png" id="1_f3sb7"]
 [ext_resource type="PackedScene" uid="uid://cib36sg3dy4n8" path="res://objects/NyctophobiaPlayer.tscn" id="2_fj7yv"]
@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://bcqejwdrj08ej" path="res://assets/Sprites/background_layer2.png" id="8_2o6r5"]
 [ext_resource type="Texture2D" uid="uid://pi1pfe0ld563" path="res://assets/Sprites/background_layer3.png" id="9_70uel"]
 [ext_resource type="Texture2D" uid="uid://defm16ubondpg" path="res://assets/Objects/HiddenCave1.png" id="9_hiqwa"]
+[ext_resource type="Texture2D" uid="uid://c4b6qxlaafiou" path="res://assets/Sprites/BackGroundUnluckyDeer.png" id="9_wjb0r"]
 [ext_resource type="Texture2D" uid="uid://b32m8vurcod2f" path="res://assets/Sprites/background_layer4.png" id="10_hiqwa"]
 [ext_resource type="Texture2D" uid="uid://cktfbf1nex7o" path="res://assets/Sprites/background_layer5.png" id="11_2u3nc"]
 [ext_resource type="Texture2D" uid="uid://cvc0voytxj5xk" path="res://assets/Sprites/background_layer6.png" id="12_udxuc"]
@@ -342,6 +343,7 @@ texture = ExtResource("7_il2jm")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ObjectwCollisionLayer/Tree3/StaticBody2D" groups=["Tree"]]
 polygon = PackedVector2Array(-153, 181, -61, 177, -24, 164, -25, 204, -58, 193, -125, 196)
+one_way_collision = true
 
 [node name="HiddenCave1Backdrop" type="Node2D" parent="."]
 
@@ -350,6 +352,11 @@ polygon = PackedVector2Array(-153, 181, -61, 177, -24, 164, -25, 204, -58, 193, 
 [node name="Sprite2D" type="Sprite2D" parent="HiddenCave1Backdrop/StaticBody2D"]
 position = Vector2(1494, 454)
 texture = ExtResource("7_2u3nc")
+
+[node name="Sprite2D" type="Sprite2D" parent="HiddenCave1Backdrop"]
+position = Vector2(1434, 467)
+scale = Vector2(0.207812, 0.207812)
+texture = ExtResource("9_wjb0r")
 
 [node name="CharacterBody2D" parent="." instance=ExtResource("2_fj7yv")]
 position = Vector2(3033, 392)
