@@ -34,6 +34,7 @@ var LedgeGrabRest: bool = false
 var Climbing: bool = false
 var IsInClimbleArea: bool = false
 var InAir: bool = true
+var Falling: bool = true
 
 var FootStepFrames: Array = [4,9]
 var VineGrabFrames: Array = [0,2]
@@ -92,8 +93,9 @@ func _physics_process(delta):
 		if is_on_floor():
 			play_anim("Run")
 			
-		else:
-			InAir = true
+		elif velocity:
+			Falling = true
+			
 			
 	elif !CantWalk: 
 		
@@ -141,13 +143,13 @@ func _physics_process(delta):
 		
 	#Fall
 	
-	if InAir and velocity.y > 0:
-		
+	if InAir and velocity.y > 0 or Falling and velocity.y > 0:
 		play_anim("Fall")
 	
 	#land
 	if InAir and is_on_floor() and velocity.y == 0:
 		InAir = false
+		Falling = false
 		
 		play_anim("Jump_land")
 		
