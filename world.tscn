@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=4 uid="uid://4m8x1ew1scsr"]
+[gd_scene load_steps=37 format=4 uid="uid://4m8x1ew1scsr"]
 
 [ext_resource type="Texture2D" uid="uid://bybmfoi4brm2f" path="res://assets/Playtest placeholders/Selfmade placeholders.png" id="1_f3sb7"]
 [ext_resource type="PackedScene" uid="uid://cib36sg3dy4n8" path="res://objects/NyctophobiaPlayer.tscn" id="2_fj7yv"]
