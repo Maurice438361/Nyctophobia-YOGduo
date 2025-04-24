@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=4 uid="uid://4m8x1ew1scsr"]
+[gd_scene load_steps=37 format=4 uid="uid://4m8x1ew1scsr"]
 
 [ext_resource type="Texture2D" uid="uid://bybmfoi4brm2f" path="res://assets/Playtest placeholders/Selfmade placeholders.png" id="1_f3sb7"]
 [ext_resource type="PackedScene" uid="uid://cib36sg3dy4n8" path="res://objects/NyctophobiaPlayer.tscn" id="2_fj7yv"]
@@ -24,8 +24,7 @@
 [ext_resource type="AudioStream" uid="uid://b6m0vwsjuuakn" path="res://assets/Audio/Twig_snap.wav" id="18_26xuy"]
 [ext_resource type="AudioStream" uid="uid://d3lnqpm732oke" path="res://assets/Audio/russel.wav" id="19_bc84e"]
 [ext_resource type="Script" uid="uid://bcufp4oxgj732" path="res://background_sounds.gd" id="20_26xuy"]
-[ext_resource type="AudioStream" uid="uid://bfmtqy3ko1264" path="res://assets/Audio/backgroundNoise.mp3" id="21_bc84e"]
-[ext_resource type="Script" uid="uid://b1xup4pe4xb7l" path="res://wind.gd" id="22_wukud"]
+[ext_resource type="AudioStream" uid="uid://bewsqqyc0fnlk" path="res://assets/Audio/backgroundWind.ogg" id="25_bo7i5"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fj7yv"]
 texture = ExtResource("1_f3sb7")
@@ -476,14 +475,16 @@ centered = false
 [node name="BackgroundSounds" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_cbp6q")
 volume_db = -10.806
+max_distance = 4096.0
+attenuation = 2.94782e-05
 script = ExtResource("20_26xuy")
 
 [node name="Wind" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("21_bc84e")
+stream = ExtResource("25_bo7i5")
 volume_db = 9.75
 autoplay = true
-parameters/looping = true
-script = ExtResource("22_wukud")
+max_distance = 4096.0
+attenuation = 8.05354e-05
 
 [connection signal="body_entered" from="ObjectwCollisionLayer/Tree1/Climbing_space" to="ObjectwCollisionLayer/Tree1/Climbing_space" method="_on_body_entered"]
 [connection signal="body_exited" from="ObjectwCollisionLayer/Tree1/Climbing_space" to="ObjectwCollisionLayer/Tree1/Climbing_space" method="_on_body_exited"]
